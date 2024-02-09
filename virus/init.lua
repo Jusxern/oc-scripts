@@ -1,6 +1,5 @@
-
 do
-   io.write("CHLEN")
+   io.write("CHLEN \n")
 end
 
 while true do
