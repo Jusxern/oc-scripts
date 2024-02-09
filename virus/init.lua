@@ -12,11 +12,8 @@ do
     end
     loadfile("/lib/core/boot.lua")(loadfile)
   end
-  
 
-do
-   io.write("CHLEN \n")
-end
+io.write("CHLEN \n")
 
 while true do
     local result, reason = xpcall(require("shell").getShell(), function(msg)
