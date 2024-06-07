@@ -20,6 +20,7 @@ Actual filters will be added soon! (So it will not work for rn lol)
 
 
 ]]
+
 local function usage()
     print("Usage: scan [options] <filename1> "..[[  
         -n      will only print scan results
@@ -27,7 +28,7 @@ local function usage()
         Icons meaning:
         ⏳ - loading/processing.
         ✅ - successfully passed a check.
-        ⚠ - warning this code is suspicious.
+        ❗ - warning this code is suspicious.
         🛑  - code most likely contains virus.
         🔐 - running mathematical processes
     ]])
@@ -44,7 +45,7 @@ local function usage()
 
 local I = {
   ['load'] = '⏳';
-  ['warn'] = '⚠️';
+  ['warn'] = '❗';
   ['stop'] = '🛑';
   ['suc'] = '✅';
   ['brut'] = '🔐';
@@ -52,11 +53,132 @@ local I = {
 }
 
 local MCode = {
-  ['directory.root'] = {I.warn..'gives access to root directory.', 2};
-  ['directory.root ='] = {I.stop..'overwrites root directory',3};
-  ['directory.root='] = {I.stop..'overwrites root directory',3};
-  ['directory.root.Init'] = {I.stop..'manipulating the Init.lua',3};
+  ['/lib/core'] = {I.warn..'manipulating core',2};
+  ['/lib/core/boot.lua'] = {I.stop..'manipulating the boot.lua',3};
+  ['/init.lua'] = {I.stop..'manipulating the Init.lua',3};
   ['loadstring'] = {I.warn..'may load suspicious code',2};
+  ['load'] = {I.warn..'may load suspicious code',2};
+  ['eeprom.set'] = {I.stop..'manipulating eeprom data',3};
+  ['rm% %-rfv% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-rvf% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-frv% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-fvr% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-vrf% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-vfr% /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-rfv% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-rvf% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-frv% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-fvr% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-vrf% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-vfr% /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-rfv% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-rvf% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-frv% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-fvr% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-vrf% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-vfr% /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-rfv% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-rvf% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-frv% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-fvr% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-vrf% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-vfr% /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-rfv% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-rvf% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-frv% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-fvr% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-vrf% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-vfr% /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-rfv% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-rvf% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-frv% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-fvr% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-vrf% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-vfr% /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-rfv% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-rvf% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-frv% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-fvr% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-vrf% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-vfr% /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-rfv% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-rvf% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-frv% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-fvr% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-vrf% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-vfr% /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-r %-f %-v%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-r %-v %-f%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-f %-r %-v%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-f %-v %-r%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-v %-r %-f%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-v %-f %-r%  /usr']  = {I.stop..'deleting system directory /usr',3};
+  ['rm% %-r %-f %-v%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-r %-v %-f%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-f %-r %-v%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-f %-v %-r%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-v %-r %-f%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-v %-f %-r%  /boot']  = {I.stop..'deleting system directory /boot',3};
+  ['rm% %-r %-f %-v%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-r %-v %-f%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-f %-r %-v%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-f %-v %-r%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-v %-r %-f%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-v %-f %-r%  /dev']  = {I.stop..'deleting system directory /dev',3};
+  ['rm% %-r %-f %-v%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-r %-v %-f%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-f %-r %-v%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-f %-v %-r%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-v %-r %-f%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-v %-f %-r%  /etc']  = {I.stop..'deleting system directory /etc',3};
+  ['rm% %-r %-f %-v%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-r %-v %-f%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-f %-r %-v%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-f %-v %-r%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-v %-r %-f%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-v %-f %-r%  /home']  = {I.stop..'deleting system directory /home',3};
+  ['rm% %-r %-f %-v%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-r %-v %-f%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-f %-r %-v%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-f %-v %-r%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-v %-r %-f%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-v %-f %-r%  /tmp']  = {I.stop..'deleting system directory /tmp',3};
+  ['rm% %-r %-f %-v%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-r %-v %-f%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-f %-r %-v%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-f %-v %-r%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-v %-r %-f%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-v %-f %-r%  /mnt']  = {I.stop..'deleting system directory /mnt',3};
+  ['rm% %-r %-f %-v%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-r %-v %-f%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-f %-r %-v%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-f %-v %-r%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-v %-r %-f%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% %-v %-f %-r%  /bin']  = {I.stop..'deleting system directory /bin',3};
+  ['rm% -rfv  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -rvf  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -frv  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -fvr  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -vrf  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -vfr  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -rfv  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -rvf  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -frv  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -fvr  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -vrf  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -vfr  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -r -f -v  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -r -v -f  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -f -r -v  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -f -v -r  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -v -r -f  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -v -f -r  /'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -r -f -v  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -r -v -f  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -f -r -v  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -f -v -r  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -v -r -f  /.'] = {I.warn..'deleting directory with root perms', 2};
+['rm% -v -f -r  /.'] = {I.warn..'deleting directory with root perms', 2};
   ['^Bbytecode'] = {I.stop..'loads obfuscated code via bytecode obfuscating!\n'..I.tab..I.stop..'try to deobfuscate it and analyze!',3};
   ['^Vnobf'] = {I.suc..'variables are not obfuscated',1};
   ['^Vobf'] = {I.warn..'variables are obfuscated!',2};
@@ -93,6 +215,10 @@ local function IsAnMCode(str)
   end
   return ret
 end
+--local shittiestOptimizationEverCounter = 0
+function shittiestOptimizationEver()
+  return 0;
+end
 
 --Cheking for any malicious code
   function check()
@@ -109,7 +235,8 @@ print(I.load..'Cheking for obfuscated variables...')
 ObfuscatedVar = {}
 local counter = 0
 for i,c in pairs(ParseScript(script)) do
-  for i=0,30000 do
+  os.sleep(0)
+  for i=0,40 do
     if c:match('local v'..i) then
       ObfuscatedVar[c:match('v'..i)] = c
     end
@@ -122,7 +249,8 @@ print('\n'..I.load..'Cheking for obfuscated functions...')
 local suc = false
 local counter = 0
 for i,c in pairs(ParseScript(script)) do
-  for i=0,30000 do
+  os.sleep(0)
+  for i=0,80 do
     if c:match('function v'..i) then
       ObfuscatedVar[c:match('v'..i)] = c
       suc = true
@@ -131,9 +259,10 @@ for i,c in pairs(ParseScript(script)) do
 end
 if suc == false then  print(I.suc..'script functions are not obfuscated') vulnerabilities[math.random(1,200000)] ={0,'^Fnobf'} else print(I.stop..'script functions are obfuscated!') vulnerabilities[math.random(1,200000)] ={0,'^Fobf'} end
 local suc = 0
+local SHIIIIIT
   print('\n'..I.load..'Checking for loadstring...')
 for i,c in pairs(vulnerabilities) do
-  if c[2] == 'loadstring' then
+  if c[2] == 'loadstring' or c[2] == 'load' then
     print(I.warn..'found loadstring()')
     suc = 1
     local sc = ParseScript(script)
@@ -142,17 +271,26 @@ for i,c in pairs(vulnerabilities) do
     local processing = true
     print(I.brut..'bruteforcing bytecode may occur lag!')
     counter = 0
-    while processing do
-      counter=counter+1
+    while processing do -- ALR LISTEN IDK HOW I MADE IT BUT ITS THE SHITTIEST CODE YOU EVER SEEN, DONT EVEN TRY TO UNDERSTAND SOMETHING.
+      counter=counter+1 --  I WAS TRYIN TO MAKE OPTIMIZATION BUT U SEE THE RESULTS
+      shittiestOptimizationEver() shittiestOptimizationEver() shittiestOptimizationEver() -- THIS WILL WORK JUST DONT TOUCH IT  
       bValue = ('\\'..math.floor(math.random(1,999)+0.5)..'\\'..math.floor(math.random(1,999)))
+      --bValue = 's'
 --      print(bValue)
       if script:match(bValue) ~= nil then
         processing = false
         print(I.suc..'Processing success, key:', bValue)
         suc = 2
         vulnerabilities[math.random(1,200000)] ={c[1],'^Bbytecode'}
+      elseif SHIIIIIT and script:match(SHIIIIIT) ~= nil then -- This thing happens when 20000 attem. ran out
+        print('Warn: 0xL1',SHIIIIIT)
+        break
       end
-      if counter >= 1000000 then
+      if counter >= 200000 then
+        SHIIIIIT = ''
+      end
+      if counter >= 200001 then -- This thing will not even possible if im right but added it to be sure😎
+        io.write('\nSeems like something broke... Alr i will skip this stage soooo uhm idk why does it even broke eerm maan. UH I Know. Solve problem ur self right? Try to find this io.write in the code alr?\n')
         break
       end
     end
