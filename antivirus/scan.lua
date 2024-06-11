@@ -16,7 +16,7 @@ local args, options = shell.parse(...)
 JustAntiVirus. By jusxern
 
 This is just an base for antivirus.
-Actual filters will be added soon! (So it will not work for rn lol)
+added filters - 11.06
 
 
 ]]
