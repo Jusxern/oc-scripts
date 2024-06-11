@@ -1,9 +1,9 @@
-local vmlua = {}
+local iov = {}
 
 local bridges = {}
 
-function vmlua.bridge(name)
-    if not name then error('No name provided for VmLua bridge') return 1; end
+function iov.bridge(name)
+    if not name then error('No name provided for IOV bridge') return 1; end
     bridge = {
         ['data'] = {};
         ['callbacks'] = {}
@@ -11,11 +11,11 @@ function vmlua.bridge(name)
     bridges[name] = bridge
 end
 
-function vmlua.connect(name)
+function iov.connect(name)
     if bridges[name] then return bridges[name] else return end
 end
 
-function vmlua.transfer(name,value,index)
+function iov.transfer(name,value,index)
     if not bridges[name] then return 1 end;
     local suc, err = pcall(function()
         bridges[name]['data'][index] = value
@@ -25,13 +25,13 @@ function vmlua.transfer(name,value,index)
     end
 end
 
-function vmlua.destroy(name)
-    print(name..' vm has been closed')
+function iov.destroy(name)
+    print(name..' IOV bridge has been closed')
     bridges[name] = {}
 end
 
-function vmlua.getBridges()
+function iov.getBridges()
     return bridges;
 end
 
-return vmlua
+return iov
