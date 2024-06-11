@@ -1,4 +1,4 @@
 virus is just not completed (idk if it will)
 
 JAV is not completed antivirus.
-\nadds 'scan' command
+VmLua is library for virtualization lua and I/O
