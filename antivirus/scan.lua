@@ -57,8 +57,9 @@ local MCode = {
   ['/lib/core/boot.lua'] = {I.stop..'manipulating the boot.lua',3};
   ['/init.lua'] = {I.stop..'manipulating the Init.lua',3};
   ['loadstring'] = {I.warn..'may load suspicious code',2};
-  ['load'] = {I.warn..'may load suspicious code',2};
+  ['load()'] = {I.warn..'may load suspicious code',2};
   ['eeprom.set'] = {I.stop..'manipulating eeprom data',3};
+  ['virus'] = {I.warn..'virus mentioned in this code😮😡😡😡'};
   ['rm% %-rfv% /usr']  = {I.stop..'deleting system directory /usr',3};
   ['rm% %-rvf% /usr']  = {I.stop..'deleting system directory /usr',3};
   ['rm% %-frv% /usr']  = {I.stop..'deleting system directory /usr',3};
@@ -156,34 +157,34 @@ local MCode = {
   ['rm% %-v %-r %-f%  /bin']  = {I.stop..'deleting system directory /bin',3};
   ['rm% %-v %-f %-r%  /bin']  = {I.stop..'deleting system directory /bin',3};
   ['rm% -rfv  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -rvf  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -frv  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -fvr  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -vrf  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -vfr  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -rfv  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -rvf  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -frv  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -fvr  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -vrf  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -vfr  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -r -f -v  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -r -v -f  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -f -r -v  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -f -v -r  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -v -r -f  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -v -f -r  /'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -r -f -v  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -r -v -f  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -f -r -v  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -f -v -r  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -v -r -f  /.'] = {I.warn..'deleting directory with root perms', 2};
-['rm% -v -f -r  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -rvf  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -frv  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -fvr  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -vrf  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -vfr  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -rfv  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -rvf  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -frv  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -fvr  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -vrf  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -vfr  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -r -f -v  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -r -v -f  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -f -r -v  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -f -v -r  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -v -r -f  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -v -f -r  /'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -r -f -v  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -r -v -f  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -f -r -v  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -f -v -r  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -v -r -f  /.'] = {I.warn..'deleting directory with root perms', 2};
+  ['rm% -v -f -r  /.'] = {I.warn..'deleting directory with root perms', 2};
   ['^Bbytecode'] = {I.stop..'loads obfuscated code via bytecode obfuscating!\n'..I.tab..I.stop..'try to deobfuscate it and analyze!',3};
   ['^Vnobf'] = {I.suc..'variables are not obfuscated',1};
   ['^Vobf'] = {I.warn..'variables are obfuscated!',2};
   ['^Fnobf'] = {I.suc..'functions are not obfuscated',1};
-  ['^Fobf'] = {I.stop..'functions are obfuscated!',3};
+  ['^Fobf'] = {I.stop..'functions are obfuscated!',3}
 }
 
 local vulnerabilities = {}
@@ -207,16 +208,25 @@ local function IsAnMCode(str)
   local counter = 0
   for mc,desc in pairs(MCode) do
     counter = counter + 1
-    if str:match(mc) then
-      ret[mc] = str
-    elseif counter == #MCode - 1 then
-      return false
+    
+    local suc,err = pcall(function()
+      if str:match(mc) then
+        ret[mc] = str
+      elseif counter == #MCode - 1 then
+        return false
+      end
+    end)
+
+    if err then
+      print(str,mc,desc,err,'\n Finished capture')
+      break
     end
   end
   return ret
 end
---local shittiestOptimizationEverCounter = 0
-function shittiestOptimizationEver()
+local shittiestOptimizationEverCounter = 0
+function shittiestOptimizationEver(a)
+  shittiestOptimizationEverCounter = shittiestOptimizationEverCounter + a
   return 0;
 end
 
@@ -226,7 +236,8 @@ for i,c in pairs(ParseScript(script, true)) do
   local pstr = IsAnMCode(c)
   for mc,str in pairs(pstr) do 
     print(i..': '..str..' -> '..MCode[mc][1])
-    vulnerabilities[math.random(1,200000)] ={i,mc}
+    table.insert(vulnerabilities,{i,mc})
+    --vulnerabilities[math.random(1,200000)] ={i,mc}
   end
 end
 print(string.rep('\n',3))
@@ -242,9 +253,9 @@ for i,c in pairs(ParseScript(script)) do
     end
   end
 end
-local loc = false for i,v in pairs(ObfuscatedVar) do if i ~= 0 and not loc then print(I.warn..'Script variables are obfuscated!') loc=true vulnerabilities[math.random(1,200000)] ={0,'^Vobf'}
+local loc = false for i,v in pairs(ObfuscatedVar) do if i ~= 0 and not loc then print(I.warn..'Script variables are obfuscated!') loc=true table.insert(vulnerabilities,{0,'^Vobf'})
 end end
-if loc == false then  print(I.suc..'script variables are not obfuscated') vulnerabilities[math.random(1,200000)] ={0,'^Vnobf'} end
+if loc == false then  print(I.suc..'script variables are not obfuscated') table.insert(vulnerabilities,{0,'^Vnobf'}) end
 print('\n'..I.load..'Cheking for obfuscated functions...')
 local suc = false
 local counter = 0
@@ -257,7 +268,7 @@ for i,c in pairs(ParseScript(script)) do
     end
   end
 end
-if suc == false then  print(I.suc..'script functions are not obfuscated') vulnerabilities[math.random(1,200000)] ={0,'^Fnobf'} else print(I.stop..'script functions are obfuscated!') vulnerabilities[math.random(1,200000)] ={0,'^Fobf'} end
+if suc == false then  print(I.suc..'script functions are not obfuscated') table.insert(vulnerabilities,{0,'^Fnobf'}) else print(I.stop..'script functions are obfuscated!') table.insert(vulnerabilities,{0,'^Fobf'}) end
 local suc = 0
 local SHIIIIIT
   print('\n'..I.load..'Checking for loadstring...')
@@ -271,25 +282,25 @@ for i,c in pairs(vulnerabilities) do
     local processing = true
     print(I.brut..'bruteforcing bytecode may occur lag!')
     counter = 0
-    while processing do -- ALR LISTEN IDK HOW I MADE IT BUT ITS THE SHITTIEST CODE YOU EVER SEEN, DONT EVEN TRY TO UNDERSTAND SOMETHING.
-      counter=counter+1 --  I WAS TRYIN TO MAKE OPTIMIZATION BUT U SEE THE RESULTS
-      shittiestOptimizationEver() shittiestOptimizationEver() shittiestOptimizationEver() -- THIS WILL WORK JUST DONT TOUCH IT  
-      bValue = ('\\'..math.floor(math.random(1,999)+0.5)..'\\'..math.floor(math.random(1,999)))
+    while processing do
+      counter=counter+1
+      shittiestOptimizationEver(1) -- THIS WILL WORK JUST DONT TOUCH IT  
+      bValue = ('\\'..math.floor(math.random(1,300)+0.5))
       --bValue = 's'
 --      print(bValue)
       if script:match(bValue) ~= nil then
         processing = false
         print(I.suc..'Processing success, key:', bValue)
         suc = 2
-        vulnerabilities[math.random(1,200000)] ={c[1],'^Bbytecode'}
+        table.insert(vulnerabilities,{c[1],'^Bbytecode'}) 
       elseif SHIIIIIT and script:match(SHIIIIIT) ~= nil then -- This thing happens when 20000 attem. ran out
         print('Warn: 0xL1',SHIIIIIT)
         break
       end
-      if counter >= 200000 then
+      if counter >= 299 then
         SHIIIIIT = ''
       end
-      if counter >= 200001 then -- This thing will not even possible if im right but added it to be sure😎
+      if counter >= 300 then -- This thing will not even possible if im right but added it to be sure😎
         io.write('\nSeems like something broke... Alr i will skip this stage soooo uhm idk why does it even broke eerm maan. UH I Know. Solve problem ur self right? Try to find this io.write in the code alr?\n')
         break
       end
@@ -309,7 +320,8 @@ print('Scan results:')
 print('More information above ⬆\n')
 for i,vuln in pairs(vulnerabilities) do
   local scriptCopy = ParseScript(script)
-  print('ln: '..vuln[1],MCode[vuln[2]][1])
+  os.sleep(0)
+  print('ln: '..vuln[1],MCode[vuln[2]][1],i)
 end
   end
   check()
