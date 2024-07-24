@@ -4,24 +4,53 @@ local uuid = require('uuid')
 local vmlua = require('iov')
 local process = require("process")
 local component = require('component')
+local args, options = shell.parse(...)
+
+local function usage()
+    print("Usage: fenv [options] <filename1> "..[[  
+
+    ]])
+end
+
+if #args == 0 or options.help then
+   usage()
+   return 1
+end
+
 vmlua.bridge('VMLuaJAV')
 local VMcode = [[
+   -- print('Host: ',require"computer".address())
     local VMF = require'iov'.connect('VMLuaJAV').data.VMF
     local require = VMF.require
     local pcall = VMF.pcall
     local computer = VMF.computer
-
-    print('\nGuest: ',computer.address())
+    local shell = VMF.shell
+    local load = VMF.load
+    print("Fake environment initialized")
+    print('Fake environment guest: ',computer.address())
 ]]
 local code = [[
-
 ]]
+local path = args[1]
+local file=io.open(path)
+code = file:read("*a")
+
 local UUIDS = {}
 local Calls = {}
 for i=1,100 do table.insert(UUIDS, uuid.next()) end
 
 VMF = {
+    ['loadcode'] = [[
+    local VMF = require'iov'.connect('VMLuaJAV').data.VMF
+    local require = VMF.require
+    local pcall = VMF.pcall
+    local computer = VMF.computer
+    local shell = VMF.shell
+    local load = VMF.load
+    print("load function fake environment initialized, some critical errors may occur at this stage")
+    ]],
     ['addcall'] = function(name,...) table.insert(Calls,{name,...}) end;
+    ['load'] = function(code) print("load function called, critical errors may occur at this stage") return load(VMF['loadcode'].."\n"..code) end;
     ['USERS'] = {};
     ['computer'] = {
         shutdown = function(reboot)      VMF.addcall('computer shutdown','reboot? '..tostring(reboot)) end;
@@ -63,7 +92,7 @@ VMF = {
     };
     ['pcall'] = function(f,...) return pcall(f) end;
     ['require'] = function(module) VMF.addcall('require',module) return VMF[module] end;
-    ['component'] = require('component')}
+    ['component'] = {}}
 VMF.component.eeprom = {
     set = function(content) VMF.addcall('eeprom set',content) return nil, "storage is readonly" end
 };
@@ -74,4 +103,4 @@ local suc,err = pcall(function()
 end)
 vmlua.destroy('VMLuaJAV')
 for i,v in pairs(Calls) do for _,b in pairs(v) do print('Call:',i,b) end end
-print(suc,err)
+print("Errors: "..tostring(err))
