@@ -1,5 +1,16 @@
 
 Its my repo with some interesting things.
+#### License: 
+
+```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 # Installer
 
@@ -16,13 +27,14 @@ wget https://raw.githubusercontent.com/Jusxern/oc-scripts/main/installer/install
 ## Features
 
 - Lua script scan.
-- Lua script scan with fake environment. Still in development.
-- Realtime protection. Still in development.
+- Lua script scan with fake environment. Still in development. ~50%
+- Realtime protection. Still in development. ~5%
+- Safe mode. Still in development.
 
 
 ## Updates list
 
-[github.com](https://github.com/Jusxern/oc-scripts/blob/main/antivirus/updates.md)
+[github.com/antivirus/updates.md](https://github.com/Jusxern/oc-scripts/blob/main/antivirus/updates.md)
 
 
 
