@@ -1,30 +1,49 @@
 
 Its my repo with some interesting things.
 
-Please keep in mind that I am not a professional in lua programming, which sometimes leads to bad decisions while writing my programs
-
+# Installer
 
 Installer is the program used to install packages from this repository.
 
-JAV is an antivirus with features as:
+## Installation
+
+```bash
+wget https://raw.githubusercontent.com/Jusxern/oc-scripts/main/installer/installer.lua /bin/jai.lua
+```
+
+# JustAntiVirus
+
+## Features
+
+- Lua script scan.
+- Lua script scan with fake environment. Still in development.
+- Realtime protection. Still in development.
 
 
-*scan (just a usual scan command. Still in development. Have bad optimization for large scripts)
+## Updates list
 
-*scan with VM usage (running script on lua vm and shows the results. Still in development)
-
-*realtime (root directories can't be deleted or renamed, lots more features. Still in development)
+[github.com](https://github.com/Jusxern/oc-scripts/blob/main/antivirus/updates.md)
 
 
-IOVLUA is library for virtualization lua Input/Output (DATA!) via a bridges (Installing automatically with JAV)
+
+## Installation
+
+#### JAV
+
+```bash
+jai antivirus
+```
+#### or
+```bash
+wget -f https://raw.githubusercontent.com/Jusxern/oc-scripts/main/antivirus/scan.lua /bin/scan.lua && wget -f https://raw.githubusercontent.com/Jusxern/oc-scripts/main/iovlua/iov.lua /lib/iov.lua && reboot
+```
+
+# IOVLUA
+
+Library to transfer data between two or more scripts
 
 
-Instructions to install:
+## Authors
 
--Installer:   wget https://raw.githubusercontent.com/Jusxern/oc-scripts/main/installer/installer.lua /bin/jai.lua
+- [@jusxern](https://github.com/Jusxern)
 
--JAV: jai antivirus
-
-or
-
--JAV: 
