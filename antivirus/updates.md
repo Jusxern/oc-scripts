@@ -1,4 +1,7 @@
 
+## Minor update 0.2.2
+
+- Cleaned some unused stuff after 0.2.1
 
 # Major update 0.2.1
 ### Thursday July 25 2024
@@ -19,3 +22,5 @@
 
 #### Unoptimized (before 0.2.1): 22 seconds
 ![Unoptimized](https://i.imgur.com/gslYFzd.gif) 
+
+##### I haven't kept a version log before >:( 
