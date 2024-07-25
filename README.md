@@ -27,6 +27,7 @@ wget https://raw.githubusercontent.com/Jusxern/oc-scripts/main/installer/install
 ## Features
 
 - Lua script scan.
+- Auto-update.
 - Lua script log with fake environment. Still in development. ~50% Avaible on [Dev branch](https://github.com/Jusxern/oc-scripts/tree/dev/antivirus)
 - Realtime protection. Still in development. ~5%
 - Safe mode. Still in development.
