@@ -21,6 +21,6 @@
 ![Optimized](https://i.imgur.com/1Pz8MhG.gif) 
 
 #### Unoptimized (before 0.2.1): 22 seconds
-![Unoptimized](https://i.imgur.com/gslYFzd.mp4) 
+![Unoptimized](https://imgur.com/Xpk6vgn)
 
 ##### I haven't kept a version log before >:( 
