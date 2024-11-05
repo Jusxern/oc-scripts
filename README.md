@@ -50,6 +50,8 @@ jai antivirus
 ```bash
 wget -f https://raw.githubusercontent.com/Jusxern/oc-scripts/main/antivirus/scan.lua /bin/scan.lua && wget -f https://raw.githubusercontent.com/Jusxern/oc-scripts/main/iovlua/iov.lua /lib/iov.lua && reboot
 ```
+# PBS
+## stands for Permission Based System
 
 # IOVLUA
 
